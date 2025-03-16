@@ -1,0 +1,9 @@
+.flip-clock-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #2b2b2b; /* falls gewünscht */
+  }
+  

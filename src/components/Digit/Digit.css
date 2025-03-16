@@ -1,0 +1,116 @@
+:root {
+  --gradient-1: linear-gradient(
+    43deg,
+    rgba(57, 57, 60, 1) 0%,
+    rgba(35, 35, 37, 1) 35%,
+    rgba(31, 31, 32, 1) 100%
+  );
+  --shadow-1: 0px 5px 10px -2px rgba(0, 0, 0, 0.7);
+}
+
+/* Container der Ziffer */
+.flip-clock__digit {
+  font-family: "Rubik", sans-serif;
+  font-weight: 800;
+  perspective: 2000px; /* Je größer, desto flacher der 3D-Effekt */
+  /* Position auf "relative" oder gar nicht spezifizieren */
+  position: relative;
+  width: 300px;   /* Deine Wunschbreite */
+  height: 410px; /* Deine Wunschhöhe */
+  margin: 0;     /* Kannst du anpassen, z.B. margin: 20px */
+}
+
+/* Karten (Background + Foreground) */
+.flip-clock__card {
+  width: 100%;
+  height: 200px;               /* jede Hälfte ~200px */
+  position: relative;
+  transform-style: preserve-3d;
+  transform-origin: center calc(100% + 10px);
+  transition: transform 1s cubic-bezier(0.84, 0, 0.98, 0.56);
+}
+
+/* Hintergrundkarte */
+.flip-clock__card--background {
+  position: absolute; /* darf absolute sein, bezieht sich auf .flip-clock__digit (relativ) */
+  top: 0;
+  left: 0;
+}
+
+/* Vordergrundkarte */
+.flip-clock__card--foreground {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Flip-Effekt */
+.flip-clock__card--foreground.flip {
+  transform: rotateX(-180deg);
+}
+
+/* Obere/Untere Hälften */
+.flip-clock__half {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 400px; /* ggf. anpassen, wenn die Ziffer zu groß abgeschnitten wird */
+  overflow: hidden;
+  color: #fff;
+  background: var(--gradient-1);
+  border-radius: 25px;
+  box-shadow: var(--shadow-1);
+}
+
+/* Spezielle Regeln für die unteren Hälften */
+.flip-clock__card--foreground .flip-clock__half--lower {
+  transform: rotateX(180deg);
+  top: 10px; /* kannst du anpassen */
+}
+
+.flip-clock__card--background .flip-clock__half--lower {
+  top: 210px; /* 200px Höhe + 10px Spacing */
+}
+
+/* Leichtes Abdunkeln */
+.flip-clock__half--lower::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+}
+
+/* Ziffern-Positionen innerhalb der oberen und unteren Hälfte */
+.flip-clock__digit-value--upper {
+  position: absolute;
+  top: -30px;
+}
+.flip-clock__digit-value--lower {
+  position: absolute;
+  top: -230px;
+}
+
+/* Divider */
+.divider {
+  /* height: 10px;
+  width: calc(100% - 35px);
+  margin-left: 15px;
+  background: none;
+  position: absolute;
+  top: 200px;
+  box-shadow: var(--shadow-1);
+  border-radius: 25px; */
+}
+
+/* Transition-Deaktivierung */
+.no-transition {
+  transition: none;
+}
